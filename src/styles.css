@@ -1,0 +1,301 @@
+:root {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: #1f1f1f;
+  background: #f5f7fb;
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.btn {
+  border: 1px solid #d0d7e2;
+  background: #fff;
+  color: #1f1f1f;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #f0f4fa;
+}
+
+.btn-primary {
+  background: #1a73e8;
+  border-color: #1a73e8;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #1558b0;
+}
+
+.btn-danger {
+  color: #c5221f;
+  border-color: #f5c2c0;
+}
+
+.btn-small {
+  padding: 6px 10px;
+  font-size: 0.85rem;
+}
+
+.alarm-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.empty {
+  color: #5f6368;
+  text-align: center;
+  padding: 40px 12px;
+}
+
+.alarm-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid #e1e7f0;
+  border-radius: 12px;
+  padding: 14px 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.alarm-item.disabled {
+  opacity: 0.55;
+}
+
+.alarm-main {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.alarm-time {
+  font-size: 1.4rem;
+  font-weight: 600;
+  min-width: 64px;
+}
+
+.alarm-label {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.alarm-recurrence,
+.alarm-remind {
+  font-size: 0.85rem;
+  color: #5f6368;
+}
+
+.remind-before {
+  border: 1px solid #e1e7f0;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 14px;
+}
+
+.alarm-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 24px;
+}
+
+.toggle-input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: #c4c7c5;
+  border-radius: 999px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.toggle-slider::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 3px;
+  top: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+.toggle-input:checked + .toggle-slider {
+  background: #1a73e8;
+}
+
+.toggle-input:checked + .toggle-slider::before {
+  transform: translateX(18px);
+}
+
+.editor {
+  margin-top: 20px;
+  background: #fff;
+  border: 1px solid #e1e7f0;
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.editor h2 {
+  margin: 0 0 16px;
+  font-size: 1.1rem;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.field span,
+fieldset legend {
+  font-size: 0.85rem;
+  color: #5f6368;
+}
+
+.field input,
+.field select,
+.snooze-group select {
+  border: 1px solid #d0d7e2;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 1rem;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.weekly-days {
+  border: 1px solid #e1e7f0;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 14px;
+}
+
+.day-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.checkbox-field {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.alert-body {
+  background: linear-gradient(180deg, #1a73e8 0%, #0d47a1 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.alert-card {
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  color: #fff;
+}
+
+.alert-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.alert-card h2 {
+  margin: 0 0 4px;
+  font-size: 1.3rem;
+}
+
+.alert-time {
+  margin: 0 0 18px;
+  opacity: 0.9;
+}
+
+.alert-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.snooze-group {
+  display: flex;
+  gap: 8px;
+}
+
+.snooze-group select {
+  flex: 1;
+}
+
+.alert-actions .btn {
+  border: none;
+}
+
+.alert-actions .btn-primary {
+  background: #fff;
+  color: #1a73e8;
+}

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alarms</title>
+    <script type="module" src="/main.js" defer></script>
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <h1>Alarms</h1>
+        <button type="button" id="add-btn" class="btn btn-primary">+ Add alarm</button>
+      </header>
+
+      <section id="alarm-list" class="alarm-list"></section>
+
+      <section id="editor" class="editor hidden">
+        <h2 id="editor-title">New alarm</h2>
+        <form id="alarm-form">
+          <input type="hidden" id="alarm-id" />
+
+          <label class="field">
+            <span>Label</span>
+            <input type="text" id="alarm-label" placeholder="Wake up" required />
+          </label>
+
+          <div class="field-row">
+            <label class="field">
+              <span>Hour</span>
+              <input type="number" id="alarm-hour" min="0" max="23" value="8" required />
+            </label>
+            <label class="field">
+              <span>Minute</span>
+              <input type="number" id="alarm-minute" min="0" max="59" value="0" required />
+            </label>
+          </div>
+
+          <label class="field">
+            <span>Repeat</span>
+            <select id="alarm-recurrence">
+              <option value="once">Once</option>
+              <option value="daily">Daily</option>
+              <option value="weekdays">Weekdays</option>
+              <option value="weekly">Weekly</option>
+            </select>
+          </label>
+
+          <fieldset id="weekly-days" class="weekly-days hidden">
+            <legend>Days</legend>
+            <div class="day-grid">
+              <label><input type="checkbox" value="0" /> Mon</label>
+              <label><input type="checkbox" value="1" /> Tue</label>
+              <label><input type="checkbox" value="2" /> Wed</label>
+              <label><input type="checkbox" value="3" /> Thu</label>
+              <label><input type="checkbox" value="4" /> Fri</label>
+              <label><input type="checkbox" value="5" /> Sat</label>
+              <label><input type="checkbox" value="6" /> Sun</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="remind-before">
+            <legend>Notify before</legend>
+            <div class="day-grid">
+              <label><input type="checkbox" name="remind-before" value="5" /> 5 min</label>
+              <label><input type="checkbox" name="remind-before" value="10" /> 10 min</label>
+              <label><input type="checkbox" name="remind-before" value="15" /> 15 min</label>
+              <label><input type="checkbox" name="remind-before" value="30" /> 30 min</label>
+            </div>
+          </fieldset>
+
+          <label class="field checkbox-field hidden" id="enabled-field">
+            <input type="checkbox" id="alarm-enabled" checked />
+            <span>Enabled</span>
+          </label>
+
+          <div class="form-actions">
+            <button type="button" id="cancel-btn" class="btn">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </body>
+</html>

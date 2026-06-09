@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alarm</title>
+    <script type="module" src="/alert.js" defer></script>
+  </head>
+  <body class="alert-body">
+    <div class="alert-card">
+      <div class="alert-icon">⏰</div>
+      <h2 id="alert-label">Alarm</h2>
+      <p id="alert-time" class="alert-time"></p>
+      <div class="alert-actions">
+        <div class="snooze-group">
+          <select id="snooze-minutes">
+            <option value="5">Snooze 5 min</option>
+            <option value="10">Snooze 10 min</option>
+            <option value="15">Snooze 15 min</option>
+          </select>
+          <button type="button" id="snooze-btn" class="btn">Snooze</button>
+        </div>
+        <button type="button" id="dismiss-btn" class="btn btn-primary">Dismiss</button>
+      </div>
+    </div>
+  </body>
+</html>
