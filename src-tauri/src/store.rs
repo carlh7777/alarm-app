@@ -48,6 +48,10 @@ impl AlarmStore {
     }
 
     pub fn create(&mut self, req: CreateAlarmRequest) -> Result<Alarm, String> {
+        let once_date = match &req.recurrence {
+            Recurrence::Once => req.once_date,
+            _ => None,
+        };
         let alarm = Alarm {
             id: Uuid::new_v4().to_string(),
             label: req.label,
@@ -55,6 +59,7 @@ impl AlarmStore {
             minute: req.minute,
             enabled: true,
             recurrence: req.recurrence,
+            once_date,
             remind_before: normalize_remind_before(req.remind_before),
             created_at: Local::now(),
             last_fired_at: None,
@@ -76,7 +81,11 @@ impl AlarmStore {
         alarm.label = req.label;
         alarm.hour = req.hour;
         alarm.minute = req.minute;
-        alarm.recurrence = req.recurrence;
+        alarm.recurrence = req.recurrence.clone();
+        alarm.once_date = match &req.recurrence {
+            Recurrence::Once => req.once_date,
+            _ => None,
+        };
         alarm.enabled = req.enabled;
         alarm.remind_before = normalize_remind_before(req.remind_before);
 

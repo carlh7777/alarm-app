@@ -1,4 +1,4 @@
-use chrono::{DateTime, Datelike, Duration, Local, Timelike, Weekday};
+use chrono::{DateTime, Datelike, Duration, Local, NaiveDate, Timelike, Weekday};
 use serde::{Deserialize, Serialize};
 
 pub const REMIND_OPTIONS: [u32; 4] = [5, 10, 15, 30];
@@ -39,6 +39,8 @@ pub struct Alarm {
     pub enabled: bool,
     pub recurrence: Recurrence,
     #[serde(default)]
+    pub once_date: Option<NaiveDate>,
+    #[serde(default)]
     pub remind_before: Vec<u32>,
     pub created_at: DateTime<Local>,
     pub last_fired_at: Option<DateTime<Local>>,
@@ -60,6 +62,8 @@ pub struct CreateAlarmRequest {
     pub minute: u8,
     pub recurrence: Recurrence,
     #[serde(default)]
+    pub once_date: Option<NaiveDate>,
+    #[serde(default)]
     pub remind_before: Vec<u32>,
 }
 
@@ -70,6 +74,8 @@ pub struct UpdateAlarmRequest {
     pub hour: u8,
     pub minute: u8,
     pub recurrence: Recurrence,
+    #[serde(default)]
+    pub once_date: Option<NaiveDate>,
     pub enabled: bool,
     #[serde(default)]
     pub remind_before: Vec<u32>,
@@ -97,7 +103,10 @@ impl Alarm {
 
     pub fn matches_recurrence(&self, now: DateTime<Local>) -> bool {
         match &self.recurrence {
-            Recurrence::Once => self.last_fired_at.is_none(),
+            Recurrence::Once => match self.once_date {
+                Some(date) => now.date_naive() == date && self.last_fired_at.is_none(),
+                None => self.last_fired_at.is_none(),
+            },
             Recurrence::Daily => true,
             Recurrence::Weekdays => matches!(
                 now.weekday(),

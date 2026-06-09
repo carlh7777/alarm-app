@@ -5,19 +5,81 @@
     <link rel="stylesheet" href="styles.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Alarms</title>
-    <script type="module" src="/main.js" defer></script>
+    <script type="module" src="main.js" defer></script>
   </head>
   <body>
     <div class="app">
       <header class="header">
-        <h1>Alarms</h1>
-        <button type="button" id="add-btn" class="btn btn-primary">+ Add alarm</button>
+        <div class="header-left">
+          <h1>Alarms</h1>
+          <button type="button" id="today-btn" class="btn">Today</button>
+        </div>
+        <div class="calendar-nav">
+          <button type="button" id="prev-period" class="btn btn-icon" aria-label="Previous">‹</button>
+          <h2 id="period-label" class="period-label"></h2>
+          <button type="button" id="next-period" class="btn btn-icon" aria-label="Next">›</button>
+        </div>
+        <div class="header-right">
+          <select id="secondary-tz" class="view-select tz-select" aria-label="Secondary timezone" title="Secondary timezone">
+            <option value="America/Los_Angeles">PST – Pacific</option>
+            <option value="Asia/Tokyo">JST – Tokyo</option>
+            <option value="America/New_York">EST – Eastern</option>
+            <option value="Europe/London">GMT – London</option>
+            <option value="UTC">UTC</option>
+          </select>
+          <select id="view-select" class="view-select" aria-label="Calendar view">
+            <option value="month">Month</option>
+            <option value="week">Week</option>
+          </select>
+          <button type="button" id="add-btn" class="btn btn-primary">+ Create</button>
+        </div>
       </header>
 
-      <section id="alarm-list" class="alarm-list"></section>
+      <div class="main-layout">
+        <section class="calendar-section" aria-label="Calendar">
+          <div id="month-view" class="month-view">
+            <div class="weekday-header">
+              <span>Sun</span>
+              <span>Mon</span>
+              <span>Tue</span>
+              <span>Wed</span>
+              <span>Thu</span>
+              <span>Fri</span>
+              <span>Sat</span>
+            </div>
+            <div id="calendar-grid" class="calendar-grid"></div>
+          </div>
 
-      <section id="editor" class="editor hidden">
-        <h2 id="editor-title">New alarm</h2>
+          <div id="week-view" class="week-view hidden">
+            <div id="week-header" class="week-header"></div>
+            <div class="week-scroll" id="week-scroll">
+              <div class="week-body">
+                <div id="time-gutter" class="time-gutter"></div>
+                <div class="week-columns-wrap">
+                  <div id="week-columns" class="week-columns"></div>
+                  <div id="now-indicator" class="now-indicator hidden" aria-hidden="true">
+                    <div class="now-dot"></div>
+                    <div class="now-line-bar"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="sidebar">
+          <h2 class="sidebar-title">All alarms</h2>
+          <section id="alarm-list" class="alarm-list"></section>
+        </aside>
+      </div>
+    </div>
+
+    <div id="editor-backdrop" class="editor-backdrop hidden">
+      <section id="editor" class="editor">
+        <div class="editor-header">
+          <h2 id="editor-title">New alarm</h2>
+          <button type="button" id="close-editor" class="btn btn-icon" aria-label="Close">×</button>
+        </div>
         <form id="alarm-form">
           <input type="hidden" id="alarm-id" />
 
@@ -26,10 +88,15 @@
             <input type="text" id="alarm-label" placeholder="Wake up" required />
           </label>
 
+          <label class="field" id="once-date-field">
+            <span>Date</span>
+            <input type="date" id="alarm-date" />
+          </label>
+
           <div class="field-row">
             <label class="field">
               <span>Hour</span>
-              <input type="number" id="alarm-hour" min="0" max="23" value="8" required />
+              <input type="number" id="alarm-hour" min="0" max="23" value="9" required />
             </label>
             <label class="field">
               <span>Minute</span>
